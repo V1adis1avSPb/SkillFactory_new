@@ -16,8 +16,10 @@ def index():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    #ваш код здесь
-    pass
+    features = np.array(request.json)
+    features = features.reshape(1, 4)
+    prediction = model.predict(features)
+    return  jsonify({'prediction': prediction[0]})
 
 if __name__ == '__main__':
     app.run('localhost', 5000)
